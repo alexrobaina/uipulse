@@ -126,7 +126,6 @@ export default function AppLayout({
         {showNavbar && (
           <Navbar
             items={navbarItems}
-            showSidebarToggle={true}
             className={navbarClassName}
             rightContent={<ThemeToggle />}
           />
