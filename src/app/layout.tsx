@@ -31,8 +31,11 @@ const navigationItems: SidebarNavItem[] = [
   },
   {
     title: "Demo",
-    href: "/demo/layout",
     icon: <Eye className="w-5 h-5" />,
+    items: [
+      { title: "Layout", href: "/demo/layout" },
+      { title: "Theme Test", href: "/demo/theme-test" },
+    ],
   },
   {
     title: "Components",
@@ -43,10 +46,13 @@ const navigationItems: SidebarNavItem[] = [
     icon: <Atom className="w-5 h-5" />,
     items: [
       { title: "Alert", href: "/atoms/alert" },
+      { title: "Avatar", href: "/atoms/avatar" },
       { title: "Badge", href: "/atoms/badge" },
       { title: "Button", href: "/atoms/button" },
       { title: "Checkbox", href: "/atoms/checkbox" },
       { title: "Input", href: "/atoms/input" },
+      { title: "Progress", href: "/atoms/progress" },
+      { title: "Switch", href: "/atoms/switch" },
     ],
   },
   {

@@ -1,77 +1,243 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode, forwardRef } from "react";
 import Link from "next/link";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/cn";
-import { useSidebar } from "./Sidebar";
 import { Menu, X } from "lucide-react";
 
-interface NavItem {
+const navbarVariants = cva(
+  [
+    "w-full border-b transition-colors duration-200",
+    "bg-white/95 backdrop-blur-sm text-neutral-900",
+    "dark:bg-neutral-900/95 dark:text-neutral-100",
+  ],
+  {
+    variants: {
+      variant: {
+        default: [
+          "border-neutral-200",
+          "dark:border-neutral-800",
+        ],
+        floating: [
+          "border-neutral-300 shadow-sm",
+          "dark:border-neutral-700 dark:shadow-lg",
+        ],
+        solid: [
+          "border-neutral-200 bg-white dark:bg-neutral-900",
+          "dark:border-neutral-800",
+        ],
+        ghost: [
+          "border-transparent bg-transparent backdrop-blur-none",
+          "dark:bg-transparent",
+        ],
+      },
+      size: {
+        sm: "h-12",
+        md: "h-16",
+        lg: "h-20",
+      },
+      sticky: {
+        true: "sticky top-0 z-40",
+        false: "relative",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+      sticky: false,
+    },
+  }
+);
+
+const navbarContainerVariants = cva([
+  "mx-auto flex items-center justify-between px-4 h-full",
+], {
+  variants: {
+    maxWidth: {
+      sm: "max-w-screen-sm",
+      md: "max-w-screen-md", 
+      lg: "max-w-screen-lg",
+      xl: "max-w-screen-xl",
+      "2xl": "max-w-screen-2xl",
+      full: "max-w-none",
+    },
+  },
+  defaultVariants: {
+    maxWidth: "xl",
+  },
+});
+
+const navbarBrandVariants = cva([
+  "flex items-center space-x-2 font-bold text-lg",
+  "text-neutral-900 dark:text-neutral-100",
+  "hover:text-neutral-700 dark:hover:text-neutral-300",
+  "transition-colors duration-200",
+]);
+
+const navbarMenuVariants = cva([
+  "hidden md:flex items-center space-x-8",
+]);
+
+const navbarLinkVariants = cva([
+  "text-sm font-medium transition-colors duration-200",
+  "text-neutral-600 hover:text-neutral-900",
+  "dark:text-neutral-400 dark:hover:text-neutral-100",
+  "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+  "rounded-md px-3 py-2",
+], {
+  variants: {
+    active: {
+      true: [
+        "text-neutral-900 dark:text-neutral-100",
+        "bg-neutral-100 dark:bg-neutral-800",
+      ],
+      false: "",
+    },
+  },
+});
+
+const navbarMobileButtonVariants = cva([
+  "md:hidden flex items-center justify-center",
+  "w-10 h-10 rounded-md",
+  "text-neutral-600 hover:text-neutral-900",
+  "dark:text-neutral-400 dark:hover:text-neutral-100",
+  "hover:bg-neutral-100 dark:hover:bg-neutral-800",
+  "transition-colors duration-200",
+  "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+]);
+
+const navbarMobileMenuVariants = cva([
+  "absolute top-full left-0 w-full z-50",
+  "bg-white dark:bg-neutral-900",
+  "border-b border-neutral-200 dark:border-neutral-800",
+  "shadow-lg md:hidden",
+  "animate-in slide-in-from-top-2 fade-in-0 duration-200",
+]);
+
+const navbarActionsVariants = cva([
+  "flex items-center space-x-4",
+]);
+
+export interface NavbarItem {
   label: string;
   href: string;
+  active?: boolean;
+  external?: boolean;
 }
 
-interface NavbarProps {
-  brand?: string | React.ReactNode;
-  items: NavItem[];
+export interface NavbarProps
+  extends VariantProps<typeof navbarVariants>,
+    VariantProps<typeof navbarContainerVariants> {
+  /**
+   * Brand content (logo, company name, etc.)
+   */
+  brand?: ReactNode;
+  /**
+   * Navigation items
+   */
+  items?: NavbarItem[];
+  /**
+   * Right-side content (buttons, user menu, etc.)
+   */
+  actions?: ReactNode;
+  /**
+   * Additional className for the navbar
+   */
   className?: string;
-  rightContent?: React.ReactNode;
+  /**
+   * Additional className for the container
+   */
+  containerClassName?: string;
 }
 
-export default function Navbar({
-  brand,
-  items,
-  className,
-  rightContent,
-}: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export interface NavbarBrandProps {
+  children: ReactNode;
+  href?: string;
+  className?: string;
+}
 
-  return (
-    <nav
-      className={cn(
-        "bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-500/30 shadow-sm h-16",
-        className
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-4">
-        <div className="flex justify-between py-2 py-1 md:p-2 h-16">
+export interface NavbarMenuProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export interface NavbarLinkProps extends VariantProps<typeof navbarLinkVariants> {
+  children: ReactNode;
+  href: string;
+  className?: string;
+  external?: boolean;
+}
+
+export interface NavbarActionsProps {
+  children: ReactNode;
+  className?: string;
+}
+
+const Navbar = forwardRef<HTMLElement, NavbarProps>(
+  (
+    {
+      brand,
+      items = [],
+      actions,
+      variant = "default",
+      size = "md",
+      sticky = false,
+      maxWidth = "xl",
+      className,
+      containerClassName,
+      ...props
+    },
+    ref
+  ) => {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    return (
+      <nav
+        ref={ref}
+        className={cn(navbarVariants({ variant, size, sticky }), className)}
+        {...props}
+      >
+        <div
+          className={cn(
+            navbarContainerVariants({ maxWidth }),
+            containerClassName
+          )}
+        >
+          {/* Brand */}
+          {brand && <div className={navbarBrandVariants()}>{brand}</div>}
+
+          {/* Desktop Menu */}
+          {items.length > 0 && (
+            <div className={navbarMenuVariants()}>
+              {items.map((item) => (
+                <NavbarLink
+                  key={item.href}
+                  href={item.href}
+                  active={item.active}
+                  external={item.external}
+                >
+                  {item.label}
+                </NavbarLink>
+              ))}
+            </div>
+          )}
+
+          {/* Actions & Mobile Menu Toggle */}
           <div className="flex items-center space-x-4">
-            {/* Brand */}
-            {brand && (
-              <Link href="/" className="text-xl font-bold text-neutral-500">
-                {typeof brand === "string" ? brand : brand}
-              </Link>
+            {actions && (
+              <div className={navbarActionsVariants()}>{actions}</div>
             )}
-          </div>
 
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-            {rightContent && (
-              <div className="flex items-center space-x-2">{rightContent}</div>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            {rightContent && (
-              <div className="flex items-center space-x-2">{rightContent}</div>
-            )}
+            {/* Mobile Menu Button */}
             {items.length > 0 && (
               <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-md text-muted-ne hover:bg-accent hover:text-accent-ne transition-colors"
-                aria-label={isOpen ? "Close menu" : "Open menu"}
+                className={navbarMobileButtonVariants()}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
               >
-                {isOpen ? (
+                {isMobileMenuOpen ? (
                   <X className="w-5 h-5" />
                 ) : (
                   <Menu className="w-5 h-5" />
@@ -81,24 +247,111 @@ export default function Navbar({
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {isOpen && (
-          <div className="md:hidden border-t border-border">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && items.length > 0 && (
+          <div className={navbarMobileMenuVariants()}>
+            <div className="px-4 py-2 space-y-1">
               {items.map((item) => (
-                <Link
+                <NavbarLink
                   key={item.href}
                   href={item.href}
-                  className="block px-3 py-2 text-muted-ne hover:text-ne hover:bg-accent rounded-md transition-colors"
-                  onClick={() => setIsOpen(false)}
+                  active={item.active}
+                  external={item.external}
+                  className="block w-full text-left"
                 >
                   {item.label}
-                </Link>
+                </NavbarLink>
               ))}
             </div>
           </div>
         )}
+      </nav>
+    );
+  }
+);
+
+const NavbarBrand = forwardRef<HTMLAnchorElement, NavbarBrandProps>(
+  ({ children, href = "/", className, ...props }, ref) => {
+    return (
+      <Link
+        ref={ref}
+        href={href}
+        className={cn(navbarBrandVariants(), className)}
+        {...props}
+      >
+        {children}
+      </Link>
+    );
+  }
+);
+
+const NavbarMenu = forwardRef<HTMLDivElement, NavbarMenuProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(navbarMenuVariants(), className)}
+        {...props}
+      >
+        {children}
       </div>
-    </nav>
-  );
-}
+    );
+  }
+);
+
+const NavbarLink = forwardRef<HTMLAnchorElement, NavbarLinkProps>(
+  ({ children, href, active = false, external = false, className, ...props }, ref) => {
+    const linkProps = external
+      ? { target: "_blank", rel: "noopener noreferrer" }
+      : {};
+
+    return (
+      <Link
+        ref={ref}
+        href={href}
+        className={cn(navbarLinkVariants({ active }), className)}
+        {...linkProps}
+        {...props}
+      >
+        {children}
+      </Link>
+    );
+  }
+);
+
+const NavbarActions = forwardRef<HTMLDivElement, NavbarActionsProps>(
+  ({ children, className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(navbarActionsVariants(), className)}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+Navbar.displayName = "Navbar";
+NavbarBrand.displayName = "NavbarBrand";
+NavbarMenu.displayName = "NavbarMenu";
+NavbarLink.displayName = "NavbarLink";
+NavbarActions.displayName = "NavbarActions";
+
+export {
+  Navbar,
+  NavbarBrand,
+  NavbarMenu,
+  NavbarLink,
+  NavbarActions,
+  navbarVariants,
+  navbarContainerVariants,
+  navbarBrandVariants,
+  navbarMenuVariants,
+  navbarLinkVariants,
+  navbarMobileButtonVariants,
+  navbarMobileMenuVariants,
+  navbarActionsVariants,
+};
+export default Navbar;

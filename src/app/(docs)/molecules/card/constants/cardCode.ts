@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode, forwardRef } from "react";
+export const cardCode = `import { HTMLAttributes, ReactNode, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/cn";
 
@@ -188,13 +188,7 @@ const cardFooterVariants = cva([
 export interface CardProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof cardVariants> {
-  /**
-   * Card content
-   */
   children?: ReactNode;
-  /**
-   * Whether the card should be rendered as a different element
-   */
   asChild?: boolean;
 }
 
@@ -206,9 +200,6 @@ export interface CardHeaderProps extends VariantProps<typeof cardHeaderVariants>
 export interface CardTitleProps extends VariantProps<typeof cardTitleVariants> {
   children?: ReactNode;
   className?: string;
-  /**
-   * HTML heading level (h1, h2, h3, etc.)
-   */
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
@@ -347,4 +338,4 @@ export {
   cardContentVariants,
   cardFooterVariants,
 };
-export default Card;
+export default Card;`;

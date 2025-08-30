@@ -1,4 +1,4 @@
-"use client";
+export const modalCode = `"use client";
 
 import { ReactNode, useEffect, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -106,37 +106,13 @@ const modalCloseButtonVariants = cva([
 ]);
 
 export interface ModalProps extends VariantProps<typeof modalContentVariants> {
-  /**
-   * Whether the modal is open
-   */
   isOpen: boolean;
-  /**
-   * Called when the modal should close
-   */
   onClose: () => void;
-  /**
-   * Modal content
-   */
   children: ReactNode;
-  /**
-   * Additional className for the modal content
-   */
   className?: string;
-  /**
-   * Whether clicking the overlay should close the modal
-   */
   closeOnOverlayClick?: boolean;
-  /**
-   * Whether pressing Escape should close the modal
-   */
   closeOnEscape?: boolean;
-  /**
-   * Whether to show the close button
-   */
   showCloseButton?: boolean;
-  /**
-   * Initial focus element selector
-   */
   initialFocus?: string;
 }
 
@@ -148,9 +124,6 @@ export interface ModalHeaderProps {
 export interface ModalTitleProps {
   children: ReactNode;
   className?: string;
-  /**
-   * HTML heading level
-   */
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
@@ -189,14 +162,12 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
     useEffect(() => {
       if (!isOpen) return;
 
-      // Handle escape key
       const handleEscape = (event: KeyboardEvent) => {
         if (event.key === "Escape" && closeOnEscape) {
           onClose();
         }
       };
 
-      // Focus management
       const handleFocus = () => {
         if (initialFocus) {
           const element = document.querySelector(initialFocus) as HTMLElement;
@@ -204,13 +175,10 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>(
         }
       };
 
-      // Prevent body scroll
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = "hidden";
       
       document.addEventListener("keydown", handleEscape);
-      
-      // Focus after animation
       const timer = setTimeout(handleFocus, 150);
 
       return () => {
@@ -355,4 +323,4 @@ export {
   modalFooterVariants,
   modalCloseButtonVariants,
 };
-export default Modal;
+export default Modal;`;
