@@ -1,57 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  :root {
-    /* Light mode - using only neutral colors */
-    --background: 255 255 255; /* neutral-50/white */
-    --foreground: 23 23 23; /* neutral-900 */
-    --primary: 64 64 64; /* neutral-700 */
-    --primary-foreground: 255 255 255; /* white */
-    --secondary: 245 245 245; /* neutral-100 */
-    --secondary-foreground: 64 64 64; /* neutral-700 */
-    --muted: 245 245 245; /* neutral-100 */
-    --muted-foreground: 115 115 115; /* neutral-500 */
-    --accent: 229 229 229; /* neutral-200 */
-    --accent-foreground: 23 23 23; /* neutral-900 */
-    --destructive: 185 28 28; /* red-700 for errors */
-    --destructive-foreground: 255 255 255; /* white */
-    --border: 212 212 212; /* neutral-300 */
-    --input: 212 212 212; /* neutral-300 */
-    --ring: 115 115 115; /* neutral-500 */
-    --card: 255 255 255; /* white */
-    --card-foreground: 23 23 23; /* neutral-900 */
-  }
-
-  .dark {
-    /* Dark mode - using only neutral colors */
-    --background: 23 23 23; /* neutral-900 */
-    --foreground: 245 245 245; /* neutral-100 */
-    --primary: 212 212 212; /* neutral-300 */
-    --primary-foreground: 23 23 23; /* neutral-900 */
-    --secondary: 38 38 38; /* neutral-800 */
-    --secondary-foreground: 245 245 245; /* neutral-100 */
-    --muted: 38 38 38; /* neutral-800 */
-    --muted-foreground: 163 163 163; /* neutral-400 */
-    --accent: 64 64 64; /* neutral-700 */
-    --accent-foreground: 245 245 245; /* neutral-100 */
-    --destructive: 239 68 68; /* red-500 for errors */
-    --destructive-foreground: 255 255 255; /* white */
-    --border: 64 64 64; /* neutral-700 */
-    --input: 64 64 64; /* neutral-700 */
-    --ring: 163 163 163; /* neutral-400 */
-    --card: 38 38 38; /* neutral-800 */
-    --card-foreground: 245 245 245; /* neutral-100 */
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-}

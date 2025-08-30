@@ -97,7 +97,7 @@ export default function AppLayout({
                       user.avatar
                     )
                   ) : (
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-medium">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
                       {user.name
                         .split(" ")
                         .map((n) => n[0])

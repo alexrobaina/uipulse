@@ -1,7 +1,7 @@
+export const buttonCode = `
 import { ButtonHTMLAttributes, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/cn";
-import { Loader2 } from "lucide-react";
 
 // Define button variants using class-variance-authority for better type safety and maintainability
 const buttonVariants = cva(
@@ -31,8 +31,8 @@ const buttonVariants = cva(
           "hover:bg-neutral-200 hover:shadow-md",
           "focus:ring-neutral-900",
           "active:bg-neutral-300 active:shadow-sm",
-          "dark:bg-neutral-900 dark:text-neutral-50",
-          "dark:hover:bg-neutral-900",
+          "dark:bg-neutral-800 dark:text-neutral-50",
+          "dark:hover:bg-neutral-700",
           "dark:focus:ring-neutral-50",
           "dark:active:bg-neutral-600",
         ],
@@ -93,31 +93,25 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  /**
-   * If set to `true`, the button will take up the full width of its container.
-   */
+ 
   fullWidth?: boolean;
-  /**
-   * If set to `true`, the button will show a loading state with disabled interaction.
-   */
+ 
   loading?: boolean;
-  /**
-   * Custom loading text to show when loading is true.
-   */
+ 
   loadingText?: string;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
+      className,
+      variant = "primary",
+      size = "md",
+      fullWidth = false,
+      loading = false,
+      loadingText,
       disabled,
       children,
-      className,
-      size = "md",
-      loadingText,
-      loading = false,
-      fullWidth = false,
-      variant = "primary",
       ...props
     },
     ref
@@ -136,8 +130,30 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={isDisabled}
         {...props}
       >
-        {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-        {loading && loadingText ? loadingText || "Loading..." : children}
+        {loading && (
+          <svg
+            className="h-4 w-4 animate-spin"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+        )}
+        {loading ? loadingText || "Loading..." : children}
       </button>
     );
   }
@@ -147,3 +163,4 @@ Button.displayName = "Button";
 
 export { Button, buttonVariants };
 export default Button;
+`;

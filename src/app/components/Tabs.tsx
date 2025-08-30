@@ -29,8 +29,8 @@ export default function Tabs({ items, defaultTab, className = "" }: TabsProps) {
               onClick={() => setActiveTab(item.id)}
               className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
                 activeTab === item.id
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+                  ? "border-blue-600 text-blue-600"
+                  : "border-transparent text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:border-neutral-300 dark:hover:border-neutral-600"
               }`}
             >
               {item.label}

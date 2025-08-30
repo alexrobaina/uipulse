@@ -42,15 +42,18 @@ const navigationItems: SidebarNavItem[] = [
     title: "Atoms",
     icon: <Atom className="w-5 h-5" />,
     items: [
-      { title: "Button", href: "/atoms/button" },
-      { title: "Input", href: "/atoms/input" },
+      { title: "Alert", href: "/atoms/alert" },
       { title: "Badge", href: "/atoms/badge" },
+      { title: "Button", href: "/atoms/button" },
+      { title: "Checkbox", href: "/atoms/checkbox" },
+      { title: "Input", href: "/atoms/input" },
     ],
   },
   {
     title: "Molecules",
     icon: <Layers3 className="w-5 h-5" />,
     items: [
+      { title: "ButtonGroup", href: "/molecules/button-group" },
       { title: "Card", href: "/molecules/card" },
       { title: "Modal", href: "/molecules/modal" },
       { title: "Navbar", href: "/molecules/navbar" },

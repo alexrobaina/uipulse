@@ -339,6 +339,7 @@ export function SidebarToggle({
 
   return (
     <Button
+      variant="ghost"
       onClick={() => {
         if (isMobile) {
           // Mobile: toggle overlay visibility (open/close)
@@ -359,16 +360,16 @@ export function SidebarToggle({
     >
       {/* Icons indicate current state and next action */}
       {!isMobile && isCollapsed && (
-        <Menu className="w-5 h-5 text-neutral-50" /> // Collapsed → click to expand
+        <Menu className="w-5 h-5 text-neutral-800 dark:text-neutral-100" /> // Collapsed → click to expand
       )}
       {!isMobile && !isCollapsed && (
-        <ArrowLeft className="w-5 h-5 text-neutral-50" /> // Expanded → click to collapse
+        <ArrowLeft className="w-5 h-5 text-neutral-800 dark:text-neutral-100" /> // Expanded → click to collapse
       )}
       {isMobile && isOpen && (
-        <ArrowLeft className="w-5 h-5 text-neutral-50" /> // Collapsed → click to expand
+        <ArrowLeft className="w-5 h-5 text-neutral-800 dark:text-neutral-100" /> // Collapsed → click to expand
       )}
       {isMobile && !isOpen && (
-        <Menu className="w-5 h-5 text-neutral-50" /> // Expanded → click to collapse
+        <Menu className="w-5 h-5 text-neutral-800 dark:text-neutral-100" /> // Expanded → click to collapse
       )}
     </Button>
   );

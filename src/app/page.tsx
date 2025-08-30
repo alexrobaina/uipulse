@@ -24,6 +24,12 @@ export default function Home() {
       type: "Atom",
     },
     {
+      name: "Checkbox",
+      description: "Interactive checkbox with variants and indeterminate state",
+      href: "/atoms/checkbox",
+      type: "Atom",
+    },
+    {
       name: "Card",
       description: "Container for structured content display",
       href: "/molecules/card",

@@ -1,56 +1,42 @@
-import Badge from "@/app/ui/atoms/Badge";
 import CodeBlock from "@/app/components/CodeBlock";
-import Preview from "@/app/components/Preview";
 import Tabs from "@/app/components/Tabs";
-
-const badgeCode = `import Badge from "@/app/ui/atoms/Badge";
-
-export default function Example() {
-  return (
-    <div className="space-x-2">
-      <Badge variant="default">Default</Badge>
-      <Badge variant="primary">Primary</Badge>
-      <Badge variant="success">Success</Badge>
-      <Badge variant="warning">Warning</Badge>
-      <Badge variant="error">Error</Badge>
-    </div>
-  );
-}`;
+import { badgeCode } from "./constants/badgeCode";
+import { badgeImplementation } from "./constants/badgeImplementation";
+import HeaderDescription from "@/app/components/HeaderDescription";
+import BadgeDemo from "./components/BadgeDemo";
 
 export default function BadgePage() {
   const tabItems = [
     {
       id: "preview",
       label: "Preview",
-      content: (
-        <Preview>
-          <div className="space-x-2">
-            <Badge variant="default">Default</Badge>
-            <Badge variant="primary">Primary</Badge>
-            <Badge variant="success">Success</Badge>
-            <Badge variant="warning">Warning</Badge>
-            <Badge variant="error">Error</Badge>
-          </div>
-        </Preview>
-      ),
+      content: <BadgeDemo />,
     },
     {
       id: "code",
       label: "Code",
-      content: <CodeBlock code={badgeCode} language="tsx" />,
+      content: <CodeBlock code={badgeImplementation} language="tsx" />,
     },
   ];
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Badge</h1>
-        <p className="text-gray-600">
-          Small status indicators and labels with multiple color variants.
-        </p>
-      </div>
+      <HeaderDescription
+        title="Badge"
+        description="Small status indicators and labels for displaying notifications, statuses, and categories with multiple color variants."
+      />
 
       <Tabs items={tabItems} defaultTab="preview" />
+
+      <div className="mb-8 mt-8">
+        <CodeBlock
+          maxLines={10}
+          language="tsx"
+          showLineNumbers
+          code={badgeCode}
+          title="Badge Component"
+        />
+      </div>
     </div>
   );
 }
