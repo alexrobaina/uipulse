@@ -1,123 +1,120 @@
-"use client";
+'use client';
 
-import { useState, ReactNode, forwardRef } from "react";
-import Link from "next/link";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/cn";
-import { Menu, X } from "lucide-react";
+import { useState, ReactNode, forwardRef } from 'react';
+import Link from 'next/link';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/cn';
+import { Menu, X } from 'lucide-react';
 
 const navbarVariants = cva(
   [
-    "w-full border-b transition-colors duration-200",
-    "bg-white/95 backdrop-blur-sm text-neutral-900",
-    "dark:bg-neutral-900/95 dark:text-neutral-100",
+    'w-full border-b transition-colors duration-200',
+    'bg-white/95 backdrop-blur-sm text-neutral-900',
+    'dark:bg-neutral-900/95 dark:text-neutral-100',
   ],
   {
     variants: {
       variant: {
-        default: [
-          "border-neutral-200",
-          "dark:border-neutral-800",
-        ],
+        default: ['border-neutral-200', 'dark:border-neutral-800'],
         floating: [
-          "border-neutral-300 shadow-sm",
-          "dark:border-neutral-700 dark:shadow-lg",
+          'border-neutral-300 shadow-sm',
+          'dark:border-neutral-700 dark:shadow-lg',
         ],
         solid: [
-          "border-neutral-200 bg-white dark:bg-neutral-900",
-          "dark:border-neutral-800",
+          'border-neutral-200 bg-white dark:bg-neutral-900',
+          'dark:border-neutral-800',
         ],
         ghost: [
-          "border-transparent bg-transparent backdrop-blur-none",
-          "dark:bg-transparent",
+          'border-transparent bg-transparent backdrop-blur-none',
+          'dark:bg-transparent',
         ],
       },
       size: {
-        sm: "h-12",
-        md: "h-16",
-        lg: "h-20",
+        sm: 'h-12',
+        md: 'h-16',
+        lg: 'h-20',
       },
       sticky: {
-        true: "sticky top-0 z-40",
-        false: "relative",
+        true: 'sticky top-0 z-40',
+        false: 'relative',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "md",
+      variant: 'default',
+      size: 'md',
       sticky: false,
     },
   }
 );
 
-const navbarContainerVariants = cva([
-  "mx-auto flex items-center justify-between px-4 h-full",
-], {
-  variants: {
-    maxWidth: {
-      sm: "max-w-screen-sm",
-      md: "max-w-screen-md", 
-      lg: "max-w-screen-lg",
-      xl: "max-w-screen-xl",
-      "2xl": "max-w-screen-2xl",
-      full: "max-w-none",
+const navbarContainerVariants = cva(
+  ['mx-auto flex items-center justify-between px-4 h-full'],
+  {
+    variants: {
+      maxWidth: {
+        sm: 'max-w-screen-sm',
+        md: 'max-w-screen-md',
+        lg: 'max-w-screen-lg',
+        xl: 'max-w-screen-xl',
+        '2xl': 'max-w-screen-2xl',
+        full: 'max-w-none',
+      },
     },
-  },
-  defaultVariants: {
-    maxWidth: "xl",
-  },
-});
+    defaultVariants: {
+      maxWidth: 'xl',
+    },
+  }
+);
 
 const navbarBrandVariants = cva([
-  "flex items-center space-x-2 font-bold text-lg",
-  "text-neutral-900 dark:text-neutral-100",
-  "hover:text-neutral-700 dark:hover:text-neutral-300",
-  "transition-colors duration-200",
+  'flex items-center space-x-2 font-bold text-lg',
+  'text-neutral-900 dark:text-neutral-100',
+  'hover:text-neutral-700 dark:hover:text-neutral-300',
+  'transition-colors duration-200',
 ]);
 
-const navbarMenuVariants = cva([
-  "hidden md:flex items-center space-x-8",
-]);
+const navbarMenuVariants = cva(['hidden md:flex items-center space-x-8']);
 
-const navbarLinkVariants = cva([
-  "text-sm font-medium transition-colors duration-200",
-  "text-neutral-600 hover:text-neutral-900",
-  "dark:text-neutral-400 dark:hover:text-neutral-100",
-  "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
-  "rounded-md px-3 py-2",
-], {
-  variants: {
-    active: {
-      true: [
-        "text-neutral-900 dark:text-neutral-100",
-        "bg-neutral-100 dark:bg-neutral-800",
-      ],
-      false: "",
+const navbarLinkVariants = cva(
+  [
+    'text-sm font-medium transition-colors duration-200',
+    'text-neutral-600 hover:text-neutral-900',
+    'dark:text-neutral-400 dark:hover:text-neutral-100',
+    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+    'rounded-md px-3 py-2',
+  ],
+  {
+    variants: {
+      active: {
+        true: [
+          'text-neutral-900 dark:text-neutral-100',
+          'bg-neutral-100 dark:bg-neutral-800',
+        ],
+        false: '',
+      },
     },
-  },
-});
+  }
+);
 
 const navbarMobileButtonVariants = cva([
-  "md:hidden flex items-center justify-center",
-  "w-10 h-10 rounded-md",
-  "text-neutral-600 hover:text-neutral-900",
-  "dark:text-neutral-400 dark:hover:text-neutral-100",
-  "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-  "transition-colors duration-200",
-  "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+  'md:hidden flex items-center justify-center',
+  'w-10 h-10 rounded-md',
+  'text-neutral-600 hover:text-neutral-900',
+  'dark:text-neutral-400 dark:hover:text-neutral-100',
+  'hover:bg-neutral-100 dark:hover:bg-neutral-800',
+  'transition-colors duration-200',
+  'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
 ]);
 
 const navbarMobileMenuVariants = cva([
-  "absolute top-full left-0 w-full z-50",
-  "bg-white dark:bg-neutral-900",
-  "border-b border-neutral-200 dark:border-neutral-800",
-  "shadow-lg md:hidden",
-  "animate-in slide-in-from-top-2 fade-in-0 duration-200",
+  'absolute top-full left-0 w-full z-50',
+  'bg-white dark:bg-neutral-900',
+  'border-b border-neutral-200 dark:border-neutral-800',
+  'shadow-lg md:hidden',
+  'animate-in slide-in-from-top-2 fade-in-0 duration-200',
 ]);
 
-const navbarActionsVariants = cva([
-  "flex items-center space-x-4",
-]);
+const navbarActionsVariants = cva(['flex items-center space-x-4']);
 
 export interface NavbarItem {
   label: string;
@@ -162,7 +159,8 @@ export interface NavbarMenuProps {
   className?: string;
 }
 
-export interface NavbarLinkProps extends VariantProps<typeof navbarLinkVariants> {
+export interface NavbarLinkProps
+  extends VariantProps<typeof navbarLinkVariants> {
   children: ReactNode;
   href: string;
   className?: string;
@@ -180,10 +178,10 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
       brand,
       items = [],
       actions,
-      variant = "default",
-      size = "md",
+      variant = 'default',
+      size = 'md',
       sticky = false,
-      maxWidth = "xl",
+      maxWidth = 'xl',
       className,
       containerClassName,
       ...props
@@ -210,7 +208,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
           {/* Desktop Menu */}
           {items.length > 0 && (
             <div className={navbarMenuVariants()}>
-              {items.map((item) => (
+              {items.map(item => (
                 <NavbarLink
                   key={item.href}
                   href={item.href}
@@ -224,7 +222,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
           )}
 
           {/* Actions & Mobile Menu Toggle */}
-          <div className="flex items-center space-x-4">
+          <div className='flex items-center space-x-4'>
             {actions && (
               <div className={navbarActionsVariants()}>{actions}</div>
             )}
@@ -234,13 +232,13 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
               <button
                 className={navbarMobileButtonVariants()}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
+                  <X className='w-5 h-5' />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className='w-5 h-5' />
                 )}
               </button>
             )}
@@ -250,14 +248,14 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
         {/* Mobile Menu */}
         {isMobileMenuOpen && items.length > 0 && (
           <div className={navbarMobileMenuVariants()}>
-            <div className="px-4 py-2 space-y-1">
-              {items.map((item) => (
+            <div className='px-4 py-2 space-y-1'>
+              {items.map(item => (
                 <NavbarLink
                   key={item.href}
                   href={item.href}
                   active={item.active}
                   external={item.external}
-                  className="block w-full text-left"
+                  className='block w-full text-left'
                 >
                   {item.label}
                 </NavbarLink>
@@ -271,7 +269,7 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(
 );
 
 const NavbarBrand = forwardRef<HTMLAnchorElement, NavbarBrandProps>(
-  ({ children, href = "/", className, ...props }, ref) => {
+  ({ children, href = '/', className, ...props }, ref) => {
     return (
       <Link
         ref={ref}
@@ -288,11 +286,7 @@ const NavbarBrand = forwardRef<HTMLAnchorElement, NavbarBrandProps>(
 const NavbarMenu = forwardRef<HTMLDivElement, NavbarMenuProps>(
   ({ children, className, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn(navbarMenuVariants(), className)}
-        {...props}
-      >
+      <div ref={ref} className={cn(navbarMenuVariants(), className)} {...props}>
         {children}
       </div>
     );
@@ -300,9 +294,12 @@ const NavbarMenu = forwardRef<HTMLDivElement, NavbarMenuProps>(
 );
 
 const NavbarLink = forwardRef<HTMLAnchorElement, NavbarLinkProps>(
-  ({ children, href, active = false, external = false, className, ...props }, ref) => {
+  (
+    { children, href, active = false, external = false, className, ...props },
+    ref
+  ) => {
     const linkProps = external
-      ? { target: "_blank", rel: "noopener noreferrer" }
+      ? { target: '_blank', rel: 'noopener noreferrer' }
       : {};
 
     return (
@@ -333,11 +330,11 @@ const NavbarActions = forwardRef<HTMLDivElement, NavbarActionsProps>(
   }
 );
 
-Navbar.displayName = "Navbar";
-NavbarBrand.displayName = "NavbarBrand";
-NavbarMenu.displayName = "NavbarMenu";
-NavbarLink.displayName = "NavbarLink";
-NavbarActions.displayName = "NavbarActions";
+Navbar.displayName = 'Navbar';
+NavbarBrand.displayName = 'NavbarBrand';
+NavbarMenu.displayName = 'NavbarMenu';
+NavbarLink.displayName = 'NavbarLink';
+NavbarActions.displayName = 'NavbarActions';
 
 export {
   Navbar,

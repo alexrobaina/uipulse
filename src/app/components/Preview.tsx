@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface PreviewProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface PreviewProps {
 
 export default function Preview({
   children,
-  className = "",
+  className = '',
   centered = true,
 }: PreviewProps) {
   return (
@@ -17,7 +17,7 @@ export default function Preview({
     >
       <div
         className={`w-full ${
-          centered ? "flex items-center justify-center min-h-[200px]" : ""
+          centered ? 'flex items-center justify-center min-h-[200px]' : ''
         }`}
       >
         {children}

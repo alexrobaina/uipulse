@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Highlight, themes } from "prism-react-renderer";
-import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from 'react';
+import { Highlight, themes } from 'prism-react-renderer';
+import { Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface CodeBlockProps {
   code: string;
@@ -17,86 +17,86 @@ interface CodeBlockProps {
 // VS Code Dark+ theme colors
 const vscodeTheme = {
   plain: {
-    color: "#D4D4D4",
-    backgroundColor: "#1E1E1E",
+    color: '#D4D4D4',
+    backgroundColor: '#1E1E1E',
   },
   styles: [
     {
-      types: ["comment", "prolog", "doctype", "cdata"],
+      types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: {
-        color: "#6A9955",
-        fontStyle: "italic",
+        color: '#6A9955',
+        fontStyle: 'italic',
       },
     },
     {
-      types: ["namespace"],
+      types: ['namespace'],
       style: {
         opacity: 0.7,
       },
     },
     {
-      types: ["string", "attr-value"],
+      types: ['string', 'attr-value'],
       style: {
-        color: "#CE9178",
+        color: '#CE9178',
       },
     },
     {
-      types: ["punctuation", "operator"],
+      types: ['punctuation', 'operator'],
       style: {
-        color: "#D4D4D4",
+        color: '#D4D4D4',
       },
     },
     {
       types: [
-        "entity",
-        "url",
-        "symbol",
-        "number",
-        "boolean",
-        "variable",
-        "constant",
-        "property",
-        "regex",
-        "inserted",
+        'entity',
+        'url',
+        'symbol',
+        'number',
+        'boolean',
+        'variable',
+        'constant',
+        'property',
+        'regex',
+        'inserted',
       ],
       style: {
-        color: "#B5CEA8",
+        color: '#B5CEA8',
       },
     },
     {
-      types: ["atrule", "keyword", "attr-name", "selector"],
+      types: ['atrule', 'keyword', 'attr-name', 'selector'],
       style: {
-        color: "#C586C0",
+        color: '#C586C0',
       },
     },
     {
-      types: ["function", "deleted", "tag"],
+      types: ['function', 'deleted', 'tag'],
       style: {
-        color: "#DCDCAA",
+        color: '#DCDCAA',
       },
     },
     {
-      types: ["function-variable"],
+      types: ['function-variable'],
       style: {
-        color: "#DCDCAA",
+        color: '#DCDCAA',
       },
     },
     {
-      types: ["tag", "selector", "keyword"],
+      types: ['tag', 'selector', 'keyword'],
       style: {
-        color: "#569CD6",
+        color: '#569CD6',
       },
     },
     {
-      types: ["builtin"],
+      types: ['builtin'],
       style: {
-        color: "#4EC9B0",
+        color: '#4EC9B0',
       },
     },
     {
-      types: ["class-name"],
+      types: ['class-name'],
       style: {
-        color: "#4EC9B0",
+        color: '#4EC9B0',
       },
     },
   ],
@@ -104,8 +104,8 @@ const vscodeTheme = {
 
 export default function CodeBlock({
   code,
-  language = "tsx",
-  className = "",
+  language = 'tsx',
+  className = '',
   showLineNumbers = true,
   title,
   maxLines = 15,
@@ -120,16 +120,16 @@ export default function CodeBlock({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy code: ", err);
+      console.error('Failed to copy code: ', err);
     }
   };
 
   // Split code into lines and determine if truncation is needed
-  const codeLines = code.trim().split("\n");
+  const codeLines = code.trim().split('\n');
   const shouldTruncate = showExpandButton && codeLines.length > maxLines;
   const displayCode =
     shouldTruncate && !isExpanded
-      ? codeLines.slice(0, maxLines).join("\n")
+      ? codeLines.slice(0, maxLines).join('\n')
       : code;
 
   const toggleExpanded = () => {
@@ -140,32 +140,32 @@ export default function CodeBlock({
     <div
       className={`relative rounded-lg overflow-hidden border border-[#3C3C3C] shadow-lg ${className}`}
       style={{
-        backgroundColor: "#1E1E1E",
+        backgroundColor: '#1E1E1E',
       }}
     >
       {/* Header */}
       <div
-        className="flex items-center justify-between px-4 py-2 border-b border-[#3C3C3C]"
-        style={{ backgroundColor: "#2D2D30" }}
+        className='flex items-center justify-between px-4 py-2 border-b border-[#3C3C3C]'
+        style={{ backgroundColor: '#2D2D30' }}
       >
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           {/* VS Code window controls */}
-          <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#FF5F57]"></div>
-            <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-            <div className="w-3 h-3 rounded-full bg-[#28CA42]"></div>
+          <div className='flex items-center gap-1.5'>
+            <div className='w-3 h-3 rounded-full bg-[#FF5F57]'></div>
+            <div className='w-3 h-3 rounded-full bg-[#FFBD2E]'></div>
+            <div className='w-3 h-3 rounded-full bg-[#28CA42]'></div>
           </div>
           {title && (
-            <span className="text-sm text-[#CCCCCC] ml-2">{title}</span>
+            <span className='text-sm text-[#CCCCCC] ml-2'>{title}</span>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-[#CCCCCC] font-mono bg-[#3C3C3C] px-2 py-1 rounded">
+        <div className='flex items-center gap-2'>
+          <span className='text-xs text-[#CCCCCC] font-mono bg-[#3C3C3C] px-2 py-1 rounded'>
             {language}
           </span>
           <button
             onClick={copyToClipboard}
-            className="flex items-center gap-1 text-xs text-[#CCCCCC] hover:text-white transition-colors duration-200 px-2 py-1 rounded bg-[#3C3C3C] hover:bg-[#505050]"
+            className='flex items-center gap-1 text-xs text-[#CCCCCC] hover:text-white transition-colors duration-200 px-2 py-1 rounded bg-[#3C3C3C] hover:bg-[#505050]'
           >
             {copied ? (
               <>
@@ -183,7 +183,7 @@ export default function CodeBlock({
       </div>
 
       {/* Code content */}
-      <div className="relative">
+      <div className='relative'>
         <Highlight
           theme={vscodeTheme as any}
           code={displayCode.trim()}
@@ -204,14 +204,14 @@ export default function CodeBlock({
                 <div
                   key={i}
                   {...getLineProps({ line, key: i })}
-                  className="table-row"
+                  className='table-row'
                 >
                   {showLineNumbers && (
-                    <span className="table-cell text-right pr-4 select-none text-[#858585] w-8">
+                    <span className='table-cell text-right pr-4 select-none text-[#858585] w-8'>
                       {i + 1}
                     </span>
                   )}
-                  <span className="table-cell">
+                  <span className='table-cell'>
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token, key })} />
                     ))}
@@ -224,10 +224,10 @@ export default function CodeBlock({
 
         {/* Expand/Collapse Button */}
         {shouldTruncate && (
-          <div className="flex justify-center border-t border-[#3C3C3C]">
+          <div className='flex justify-center border-t border-[#3C3C3C]'>
             <button
               onClick={toggleExpanded}
-              className="flex items-center gap-2 px-4 py-2 text-xs text-[#CCCCCC] hover:text-white transition-colors duration-200 hover:bg-[#2D2D30]"
+              className='flex items-center gap-2 px-4 py-2 text-xs text-[#CCCCCC] hover:text-white transition-colors duration-200 hover:bg-[#2D2D30]'
             >
               {isExpanded ? (
                 <>

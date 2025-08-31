@@ -1,40 +1,40 @@
-import CodeBlock from "@/app/components/CodeBlock";
-import Tabs from "@/app/components/Tabs";
-import { switchCode } from "./constants/switchCode";
-import { switchImplementation } from "./constants/switchImplementation";
-import HeaderDescription from "@/app/components/HeaderDescription";
-import SwitchDemo from "./components/SwitchDemo";
+import CodeBlock from '@/app/components/CodeBlock';
+import Tab from '@/app/ui/molecules/Tab';
+import { switchCode } from './constants/switchCode';
+import { switchImplementation } from './constants/switchImplementation';
+import HeaderDescription from '@/app/components/HeaderDescription';
+import SwitchDemo from './components/SwitchDemo';
 
 export default function SwitchPage() {
   const tabItems = [
     {
-      id: "preview",
-      label: "Preview",
+      id: 'preview',
+      label: 'Preview',
       content: <SwitchDemo />,
     },
     {
-      id: "code",
-      label: "Code",
-      content: <CodeBlock code={switchImplementation} language="tsx" />,
+      id: 'code',
+      label: 'Code',
+      content: <CodeBlock code={switchImplementation} language='tsx' />,
     },
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className='max-w-4xl mx-auto p-6'>
       <HeaderDescription
-        title="Switch"
-        description="A toggle switch component for binary choices. Perfect for settings, preferences, and feature toggles with multiple variants and sizes."
+        title='Switch'
+        description='A toggle switch component for binary choices. Perfect for settings, preferences, and feature toggles with multiple variants and sizes.'
       />
 
-      <Tabs items={tabItems} defaultTab="preview" />
+      <Tab items={tabItems} defaultTab='preview' />
 
-      <div className="mb-8 mt-8">
+      <div className='mb-8 mt-8'>
         <CodeBlock
           maxLines={10}
-          language="tsx"
+          language='tsx'
           showLineNumbers
           code={switchCode}
-          title="Switch Component"
+          title='Switch Component'
         />
       </div>
     </div>

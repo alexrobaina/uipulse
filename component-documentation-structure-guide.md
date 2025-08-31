@@ -8,9 +8,6 @@ Each component documentation follows a consistent folder structure and file orga
 
 ## Folder Structure
 
-Use this web page like a referece
-@https://www.hyperui.dev/components/application
-
 ```
 src/app/(docs)/atoms/{component-name}/
 ├── page.tsx                    # Main documentation page
@@ -36,43 +33,43 @@ src/app/(docs)/atoms/{component-name}/
 The main documentation page serves as the entry point and orchestrates all the components. It follows this structure:
 
 ```tsx
-import CodeBlock from "@/app/components/CodeBlock";
-import Tabs from "@/app/components/Tabs";
-import { componentCode } from "./constants/componentCode";
-import { componentImplementation } from "./constants/componentImplementation";
-import HeaderDescription from "@/app/components/HeaderDescription";
-import ComponentDemo from "./components/ComponentDemo";
+import CodeBlock from '@/app/components/CodeBlock';
+import Tabs from '@/app/components/Tabs';
+import { componentCode } from './constants/componentCode';
+import { componentImplementation } from './constants/componentImplementation';
+import HeaderDescription from '@/app/components/HeaderDescription';
+import ComponentDemo from './components/ComponentDemo';
 
 export default function ComponentPage() {
   const tabItems = [
     {
-      id: "preview",
-      label: "Preview",
+      id: 'preview',
+      label: 'Preview',
       content: <ComponentDemo />,
     },
     {
-      id: "code",
-      label: "Code",
-      content: <CodeBlock code={componentImplementation} language="tsx" />,
+      id: 'code',
+      label: 'Code',
+      content: <CodeBlock code={componentImplementation} language='tsx' />,
     },
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className='max-w-4xl mx-auto p-6'>
       <HeaderDescription
-        title="Component Name"
-        description="Brief description of the component and its purpose"
+        title='Component Name'
+        description='Brief description of the component and its purpose'
       />
 
-      <Tabs items={tabItems} defaultTab="preview" />
+      <Tabs items={tabItems} defaultTab='preview' />
 
-      <div className="mb-8 mt-8">
+      <div className='mb-8 mt-8'>
         <CodeBlock
           maxLines={10}
-          language="tsx"
+          language='tsx'
           showLineNumbers
           code={componentCode}
-          title="Component Name Component"
+          title='Component Name Component'
         />
       </div>
     </div>
@@ -92,27 +89,27 @@ export default function ComponentPage() {
 The demo component showcases all variants, states, and use cases of the component:
 
 ```tsx
-import Component from "@/app/ui/atoms/Component";
-import Preview from "@/app/components/Preview";
+import Component from '@/app/ui/atoms/Component';
+import Preview from '@/app/components/Preview';
 
 export default function ComponentDemo() {
   return (
     <Preview>
       {/* Organized sections showcasing different variants */}
-      <div className="space-y-6 w-full">
+      <div className='space-y-6 w-full'>
         {/* Section 1: Basic usage */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-foreground">Basic Usage</h3>
+        <div className='space-y-2'>
+          <h3 className='text-sm font-medium text-foreground'>Basic Usage</h3>
           <Component />
         </div>
 
         {/* Section 2: Variants */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-foreground">Variants</h3>
-          <div className="flex gap-4">
-            <Component variant="default" />
-            <Component variant="success" />
-            <Component variant="outline" />
+        <div className='space-y-2'>
+          <h3 className='text-sm font-medium text-foreground'>Variants</h3>
+          <div className='flex gap-4'>
+            <Component variant='default' />
+            <Component variant='success' />
+            <Component variant='outline' />
           </div>
         </div>
 
@@ -281,20 +278,20 @@ UIpulse components should use specific Tailwind color palette values rather than
 
 ```tsx
 // ❌ Avoid semantic tokens
-className = "bg-primary text-primary-foreground";
-className = "bg-secondary text-secondary-foreground";
-className = "border-border text-muted-foreground";
+className = 'bg-primary text-primary-foreground';
+className = 'bg-secondary text-secondary-foreground';
+className = 'border-border text-muted-foreground';
 ```
 
 **Use this**:
 
 ```tsx
 // ✅ Use specific Tailwind colors
-className = "bg-blue-600 text-white";
+className = 'bg-blue-600 text-white';
 className =
-  "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200";
+  'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200';
 className =
-  "border-neutral-300 text-neutral-500 dark:border-neutral-700 dark:text-neutral-400";
+  'border-neutral-300 text-neutral-500 dark:border-neutral-700 dark:text-neutral-400';
 ```
 
 ### Dark Mode Considerations
@@ -305,11 +302,11 @@ Always provide dark mode variants using the `dark:` prefix:
 // Light mode: neutral-100 background, neutral-800 text
 // Dark mode: neutral-800 background, neutral-200 text
 className =
-  "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200";
+  'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200';
 
 // Light mode: blue-100 background, blue-800 text
 // Dark mode: blue-900/20 background, blue-400 text
-className = "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400";
+className = 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400';
 ```
 
 ### Component Variant Naming

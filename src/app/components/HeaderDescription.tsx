@@ -6,11 +6,11 @@ export default function HeaderDescription({
   description: string;
 }) {
   return (
-    <div className="mb-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-white">
+    <div className='mb-8'>
+      <h1 className='text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2'>
         {title}
       </h1>
-      <p className="text-gray-600 dark:text-gray-400">{description}</p>
+      <p className='text-neutral-600 dark:text-neutral-400'>{description}</p>
     </div>
   );
 }
