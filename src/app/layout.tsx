@@ -17,9 +17,83 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'UIPulse - React Component Library',
+  metadataBase: new URL('https://uipulse.com'),
+  title: {
+    default: 'UIPulse - React Component Library',
+    template: '%s | UIPulse',
+  },
   description:
-    'A comprehensive UI component library built with React, TypeScript, and Tailwind CSS',
+    'A comprehensive UI component library built with React, TypeScript, and Tailwind CSS. 35 production-ready components for modern web applications.',
+  keywords: [
+    'react',
+    'components',
+    'ui library',
+    'typescript',
+    'tailwind css',
+    'atomic design',
+    'component library',
+    'ui components',
+    'react ui',
+    'design system',
+    'frontend',
+    'web development',
+    'responsive design',
+    'accessibility',
+  ],
+  authors: [{ name: 'Alex Robaina' }],
+  creator: 'Alex Robaina',
+  publisher: 'UIPulse',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://uipulse.com',
+    siteName: 'UIPulse',
+    title: 'UIPulse - React Component Library',
+    description:
+      'A comprehensive UI component library built with React, TypeScript, and Tailwind CSS. 35 production-ready components for modern web applications.',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'UIPulse - React Component Library',
+      },
+      {
+        url: '/images/og-image-square.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'UIPulse - React Component Library',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UIPulse - React Component Library',
+    description:
+      'A comprehensive UI component library built with React, TypeScript, and Tailwind CSS. 35 production-ready components for modern web applications.',
+    creator: '@alexrobaina',
+    images: ['/images/twitter-image.jpg'],
+  },
+  alternates: {
+    canonical: '/',
+  },
+  category: 'Technology',
+  classification: 'Software Development Tools',
+  verification: {
+    google: 'your-google-verification-code',
+    yandex: 'your-yandex-verification-code',
+  },
 };
 
 // Navigation configuration
@@ -98,6 +172,47 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <link rel='icon' href='/favicon.ico' sizes='32x32' />
+        <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
+        <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
+        <link rel='manifest' href='/manifest.json' />
+        <meta name='theme-color' content='#3b82f6' />
+        <meta name='msapplication-TileColor' content='#3b82f6' />
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1, maximum-scale=5'
+        />
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'UIPulse',
+              url: 'https://uipulse.com',
+              description:
+                'A comprehensive UI component library built with React, TypeScript, and Tailwind CSS. 35 production-ready components for modern web applications.',
+              author: {
+                '@type': 'Person',
+                name: 'Alex Robaina',
+                url: 'https://github.com/alexrobaina',
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: 'UIPulse',
+                url: 'https://uipulse.com',
+              },
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://uipulse.com/?search={search_term_string}',
+                'query-input': 'required name=search_term_string',
+              },
+              sameAs: ['https://github.com/alexrobaina/uipulse'],
+            }),
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider
           attribute='class'

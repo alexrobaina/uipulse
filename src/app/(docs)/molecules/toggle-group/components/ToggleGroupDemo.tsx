@@ -78,7 +78,7 @@ export default function ToggleGroupDemo() {
             items={alignmentItems}
             type='single'
             value={alignment}
-            onValueChange={(value) => setAlignment(value as string)}
+            onValueChange={value => setAlignment(value as string)}
           />
           <p className='text-xs text-neutral-600 dark:text-neutral-400'>
             Selected: {alignment || 'none'}
@@ -93,7 +93,7 @@ export default function ToggleGroupDemo() {
             items={formattingItems}
             type='multiple'
             value={textFormat}
-            onValueChange={(value) => setTextFormat(value as string[])}
+            onValueChange={value => setTextFormat(value as string[])}
           />
           <p className='text-xs text-neutral-600 dark:text-neutral-400'>
             Selected: {textFormat.length > 0 ? textFormat.join(', ') : 'none'}
@@ -116,7 +116,7 @@ export default function ToggleGroupDemo() {
             variant='ghost'
             type='single'
             value={viewMode}
-            onValueChange={(value) => setViewMode(value as string)}
+            onValueChange={value => setViewMode(value as string)}
           />
           <p className='text-xs text-neutral-600 dark:text-neutral-400'>
             Current view: {viewMode}
@@ -214,7 +214,7 @@ export default function ToggleGroupDemo() {
             variant='ghost'
             type='multiple'
             value={actions}
-            onValueChange={(value) => setActions(value as string[])}
+            onValueChange={value => setActions(value as string[])}
           />
           <p className='text-xs text-neutral-600 dark:text-neutral-400'>
             Active: {actions.length > 0 ? actions.join(', ') : 'none'}
