@@ -1,9 +1,30 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Search } from 'lucide-react';
 import Button from '@/app/ui/atoms/Button';
 import Card from '@/app/ui/molecules/Card';
 import Badge from '@/app/ui/atoms/Badge';
+import SearchModal from '@/app/ui/molecules/SearchModal';
 
 export default function Home() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const router = useRouter();
+
+  // Add keyboard shortcut to open search modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
   const atomComponents = [
     {
       name: 'Alert',
@@ -57,12 +78,6 @@ export default function Home() {
       name: 'Show More',
       description: 'Expandable content sections',
       href: '/atoms/show-more',
-      type: 'Atom',
-    },
-    {
-      name: 'Slider',
-      description: 'Range sliders and value selectors',
-      href: '/atoms/slider',
       type: 'Atom',
     },
     {
@@ -220,6 +235,59 @@ export default function Home() {
     },
   ];
 
+  // Create comprehensive search data
+  const allSearchResults = [
+    // Atom components
+    ...atomComponents.map(component => ({
+      id: `atom-${component.name.toLowerCase().replace(/\s+/g, '-')}`,
+      title: component.name,
+      description: component.description,
+      type: 'component' as const,
+      url: component.href,
+    })),
+    // Molecule components
+    ...moleculeComponents.map(component => ({
+      id: `molecule-${component.name.toLowerCase().replace(/\s+/g, '-')}`,
+      title: component.name,
+      description: component.description,
+      type: 'component' as const,
+      url: component.href,
+    })),
+    // Demo pages
+    {
+      id: 'demo-layout',
+      title: 'Layout Demo',
+      description: 'Complete layout demonstration with sidebar and components',
+      type: 'page' as const,
+      url: '/demo/layout',
+    },
+    {
+      id: 'demo-navbar-sidebar',
+      title: 'Navbar + Sidebar Demo',
+      description: 'Navigation layout with navbar and sidebar combination',
+      type: 'page' as const,
+      url: '/demo/navbar-sidebar',
+    },
+    {
+      id: 'demo-enhanced-sidebar',
+      title: 'Enhanced Sidebar Demo',
+      description: 'Advanced sidebar with enhanced features and styling',
+      type: 'page' as const,
+      url: '/demo/enhanced-sidebar',
+    },
+    {
+      id: 'demo-theme-test',
+      title: 'Theme Test',
+      description: 'Test page for theme switching and dark mode',
+      type: 'page' as const,
+      url: '/demo/theme-test',
+    },
+  ];
+
+  const handleSearchNavigation = (url: string) => {
+    router.push(url);
+  };
+
   return (
     <div className='min-h-screen bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50  '>
       <div className='max-w-6xl mx-auto px-4 py-16'>
@@ -242,7 +310,19 @@ export default function Home() {
             </strong>{' '}
             for your next project.
           </p>
-
+          <div className='flex flex-wrap justify-center gap-3 mb-8'>
+            <Button
+              variant='outline'
+              onClick={() => setIsSearchOpen(true)}
+              className='flex items-center gap-2'
+            >
+              <Search className='w-4 h-4' />
+              Search Components
+              <kbd className='hidden sm:inline-flex items-center justify-center px-2 py-1 text-xs bg-neutral-200 dark:bg-neutral-700 rounded border border-neutral-300 dark:border-neutral-600 ml-2'>
+                ⌘K
+              </kbd>
+            </Button>
+          </div>
           <div className='flex flex-wrap justify-center gap-3 mb-8'>
             <Badge variant='primary'>35 Components</Badge>
             <Badge variant='success'>React + TypeScript</Badge>
@@ -461,10 +541,27 @@ export default function Home() {
               <Link href='/atoms/button'>
                 <Button variant='outline'>View Documentation</Button>
               </Link>
+              <Button
+                variant='secondary'
+                onClick={() => setIsSearchOpen(true)}
+                className='flex items-center gap-2'
+              >
+                <Search className='w-4 h-4' />
+                Search
+              </Button>
             </div>
           </Card>
         </div>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onNavigate={handleSearchNavigation}
+        searchResults={allSearchResults}
+        placeholder='Search components, demos, and documentation...'
+      />
     </div>
   );
 }

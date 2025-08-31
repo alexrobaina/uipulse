@@ -2,14 +2,8 @@
 import SliderModal from '@/app/ui/molecules/SliderModal';
 import Button from '@/app/ui/atoms/Button';
 import Preview from '@/app/components/Preview';
-import { useState } from 'react';
 
 export default function SliderModalDemo() {
-  const [rightModal, setRightModal] = useState(false);
-  const [leftModal, setLeftModal] = useState(false);
-  const [topModal, setTopModal] = useState(false);
-  const [bottomModal, setBottomModal] = useState(false);
-
   return (
     <Preview>
       <div className='space-y-8 w-full'>
@@ -66,16 +60,57 @@ export default function SliderModalDemo() {
             Different Sides
           </h3>
           <div className='flex flex-wrap gap-4'>
-            <Button onClick={() => setRightModal(true)}>Right Side</Button>
-            <Button onClick={() => setLeftModal(true)} variant='outline'>
-              Left Side
-            </Button>
-            <Button onClick={() => setTopModal(true)} variant='outline'>
-              Top Side
-            </Button>
-            <Button onClick={() => setBottomModal(true)} variant='outline'>
-              Bottom Side
-            </Button>
+            <SliderModal
+              trigger={<Button>Right Side</Button>}
+              title='Right Side Modal'
+              description='This modal slides in from the right side.'
+              side='right'
+              variant='modern'
+            >
+              <p>
+                Content for right side modal. This is useful for navigation
+                menus, settings panels, or detailed views.
+              </p>
+            </SliderModal>
+
+            <SliderModal
+              trigger={<Button variant='outline'>Left Side</Button>}
+              title='Left Side Modal'
+              description='This modal slides in from the left side.'
+              side='left'
+              variant='modern'
+            >
+              <p>
+                Content for left side modal. Perfect for sidebars, navigation
+                panels, or contextual information.
+              </p>
+            </SliderModal>
+
+            <SliderModal
+              trigger={<Button variant='outline'>Top Side</Button>}
+              title='Top Modal'
+              description='This modal slides down from the top.'
+              side='top'
+              variant='modern'
+            >
+              <p>
+                Content for top modal. Great for notifications, announcements,
+                or quick actions.
+              </p>
+            </SliderModal>
+
+            <SliderModal
+              trigger={<Button variant='outline'>Bottom Side</Button>}
+              title='Bottom Modal'
+              description='This modal slides up from the bottom.'
+              side='bottom'
+              variant='modern'
+            >
+              <p>
+                Content for bottom modal. Ideal for mobile-friendly sheets,
+                quick forms, or action panels.
+              </p>
+            </SliderModal>
           </div>
         </div>
 
@@ -89,7 +124,7 @@ export default function SliderModalDemo() {
               trigger={<Button variant='outline'>Default Variant</Button>}
               title='Default Modal'
               description='Standard modal with default styling.'
-              variant='default'
+              side='right'
             >
               <p>
                 This is a default styled modal with standard borders and
@@ -143,6 +178,7 @@ export default function SliderModalDemo() {
               title='Medium Modal'
               size='md'
               variant='modern'
+              side='left'
             >
               <p>This is a medium-sized modal with standard dimensions.</p>
             </SliderModal>
@@ -152,6 +188,7 @@ export default function SliderModalDemo() {
               title='Large Modal'
               size='lg'
               variant='modern'
+              side='right'
             >
               <p>
                 This is a large modal with expanded dimensions for more content.
@@ -163,6 +200,7 @@ export default function SliderModalDemo() {
               title='Extra Large Modal'
               size='xl'
               variant='modern'
+              side='top'
             >
               <p>
                 This is an extra large modal with maximum dimensions for
@@ -365,63 +403,6 @@ export default function SliderModalDemo() {
             </div>
           </SliderModal>
         </div>
-
-        {/* Modals for different sides */}
-        <SliderModal
-          open={rightModal}
-          onOpenChange={setRightModal}
-          title='Right Side Modal'
-          description='This modal slides in from the right side.'
-          side='right'
-          variant='modern'
-        >
-          <p>
-            Content for right side modal. This is useful for navigation menus,
-            settings panels, or detailed views.
-          </p>
-        </SliderModal>
-
-        <SliderModal
-          open={leftModal}
-          onOpenChange={setLeftModal}
-          title='Left Side Modal'
-          description='This modal slides in from the left side.'
-          side='left'
-          variant='modern'
-        >
-          <p>
-            Content for left side modal. Perfect for sidebars, navigation
-            panels, or contextual information.
-          </p>
-        </SliderModal>
-
-        <SliderModal
-          open={topModal}
-          onOpenChange={setTopModal}
-          title='Top Modal'
-          description='This modal slides down from the top.'
-          side='top'
-          variant='modern'
-        >
-          <p>
-            Content for top modal. Great for notifications, announcements, or
-            quick actions.
-          </p>
-        </SliderModal>
-
-        <SliderModal
-          open={bottomModal}
-          onOpenChange={setBottomModal}
-          title='Bottom Modal'
-          description='This modal slides up from the bottom.'
-          side='bottom'
-          variant='modern'
-        >
-          <p>
-            Content for bottom modal. Ideal for mobile-friendly sheets, quick
-            forms, or action panels.
-          </p>
-        </SliderModal>
       </div>
     </Preview>
   );

@@ -1,15 +1,13 @@
 export const sliderModalImplementation = `import SliderModal from "@/app/ui/molecules/SliderModal";
 import Button from "@/app/ui/atoms/Button";
-import { useState } from "react";
 
 export default function SliderModalExample() {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="space-y-8">
-      {/* Basic Usage with Trigger */}
+      {/* Basic Usage */}
       <div className="space-y-3">
-        <h3 className="text-sm font-medium">Basic Usage with Trigger</h3>
+        <h3 className="text-sm font-medium">Basic Usage</h3>
         <SliderModal
           trigger={<Button>Open Modal</Button>}
           title="Settings"
@@ -35,37 +33,6 @@ export default function SliderModalExample() {
               />
             </div>
           </div>
-        </SliderModal>
-      </div>
-
-      {/* Controlled Modal */}
-      <div className="space-y-3">
-        <h3 className="text-sm font-medium">Controlled Modal</h3>
-        <div className="flex gap-4">
-          <Button onClick={() => setIsOpen(true)}>
-            Open Controlled Modal
-          </Button>
-        </div>
-        
-        <SliderModal
-          open={isOpen}
-          onOpenChange={setIsOpen}
-          title="Controlled Modal"
-          description="This modal is controlled via state."
-          side="right"
-          variant="modern"
-          footer={
-            <div className="flex gap-3">
-              <Button variant="outline" onClick={() => setIsOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={() => setIsOpen(false)}>
-                Save
-              </Button>
-            </div>
-          }
-        >
-          <p>This modal's open state is controlled by external state.</p>
         </SliderModal>
       </div>
 

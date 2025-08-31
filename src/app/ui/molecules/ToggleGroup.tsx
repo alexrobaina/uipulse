@@ -142,7 +142,12 @@ const ToggleGroup: React.FC<ToggleGroupProps> = ({
             title={item.label}
           >
             {item.icon && (
-              <span className={cn('flex-shrink-0', iconSizeClasses[size])}>
+              <span
+                className={cn(
+                  'flex-shrink-0 [&>svg]:w-full [&>svg]:h-full',
+                  iconSizeClasses[size]
+                )}
+              >
                 {item.icon}
               </span>
             )}

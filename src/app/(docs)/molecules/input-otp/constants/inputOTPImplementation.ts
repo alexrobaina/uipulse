@@ -1,4 +1,4 @@
-'use client';
+export const inputOTPImplementation = `'use client';
 
 import React, {
   useState,
@@ -46,7 +46,7 @@ const InputOTP: React.FC<InputOTPProps> = ({
 
   const currentValue = value !== undefined ? value : internalValue;
 
-  // Always render `length` inputs; pull each digit from currentValue
+  // Always render \`length\` inputs; pull each digit from currentValue
   const digits = Array.from({ length }, (_, i) => currentValue[i] ?? '');
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const InputOTP: React.FC<InputOTPProps> = ({
   }, [autoFocus]);
 
   useEffect(() => {
-    if (currentValue.replace(/\s+/g, '').length === length && onComplete) {
+    if (currentValue.replace(/\\s+/g, '').length === length && onComplete) {
       onComplete(currentValue.slice(0, length));
     }
   }, [currentValue, length, onComplete]);
@@ -80,7 +80,7 @@ const InputOTP: React.FC<InputOTPProps> = ({
 
     // accept only the last numeric char typed
     const raw = e.target.value;
-    const lastDigit = (raw.match(/\d/g) ?? []).pop() ?? '';
+    const lastDigit = (raw.match(/\\d/g) ?? []).pop() ?? '';
 
     const newDigits = [...digits];
     newDigits[index] = lastDigit;
@@ -136,7 +136,7 @@ const InputOTP: React.FC<InputOTPProps> = ({
       default:
         // numeric only (allow navigation/modifier keys)
         if (
-          !/\d/.test(e.key) &&
+          !/\\d/.test(e.key) &&
           !['Tab', 'Shift', 'Control', 'Alt', 'Meta'].includes(e.key) &&
           !e.ctrlKey &&
           !e.metaKey
@@ -159,7 +159,7 @@ const InputOTP: React.FC<InputOTPProps> = ({
     e.preventDefault();
     if (disabled) return;
 
-    const pastedDigits = e.clipboardData.getData('text').replace(/\D/g, '');
+    const pastedDigits = e.clipboardData.getData('text').replace(/\\D/g, '');
     if (!pastedDigits) return;
 
     const start = focusedIndex >= 0 ? focusedIndex : 0;
@@ -242,8 +242,8 @@ const InputOTP: React.FC<InputOTPProps> = ({
             onKeyDown={e => handleKeyDown(index, e)}
             onFocus={() => handleFocus(index)}
             onBlur={handleBlur}
-            aria-label={`Digit ${index + 1} of ${length}`}
-            aria-describedby={`otp-input-${index}`}
+            aria-label={\`Digit \${index + 1} of \${length}\`}
+            aria-describedby={\`otp-input-\${index}\`}
           />
           {shouldShowSeparator(index) && (
             <div className='flex items-center justify-center text-neutral-400 dark:text-neutral-500 px-2'>
@@ -256,4 +256,4 @@ const InputOTP: React.FC<InputOTPProps> = ({
   );
 };
 
-export default InputOTP;
+export default InputOTP;`;

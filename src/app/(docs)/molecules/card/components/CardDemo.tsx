@@ -37,9 +37,7 @@ export default function CardDemo() {
             </CardContent>
             <CardFooter>
               <Button>View Details</Button>
-              <Button variant='outline'>
-                Edit Project
-              </Button>
+              <Button variant='outline'>Edit Project</Button>
             </CardFooter>
           </Card>
         </div>
@@ -66,9 +64,7 @@ export default function CardDemo() {
             <Card variant='elevated'>
               <CardHeader>
                 <CardTitle>Elevated</CardTitle>
-                <CardDescription>
-                  Enhanced depth and prominence
-                </CardDescription>
+                <CardDescription>Enhanced depth and prominence</CardDescription>
               </CardHeader>
               <CardContent>
                 Ideal for highlighting important content and creating visual
@@ -91,9 +87,7 @@ export default function CardDemo() {
             <Card variant='minimal'>
               <CardHeader>
                 <CardTitle>Minimal</CardTitle>
-                <CardDescription>
-                  Clean design without borders
-                </CardDescription>
+                <CardDescription>Clean design without borders</CardDescription>
               </CardHeader>
               <CardContent>
                 Great for content-focused layouts and dashboard interfaces.
@@ -235,21 +229,13 @@ export default function CardDemo() {
                   Node.js, and cloud architecture patterns.
                 </p>
                 <div className='flex flex-wrap gap-2'>
-                  <Badge variant='default'>
-                    React
-                  </Badge>
-                  <Badge variant='success'>
-                    Node.js
-                  </Badge>
-                  <Badge variant='default'>
-                    TypeScript
-                  </Badge>
+                  <Badge variant='default'>React</Badge>
+                  <Badge variant='success'>Node.js</Badge>
+                  <Badge variant='default'>TypeScript</Badge>
                 </div>
               </CardContent>
               <CardFooter justify='end'>
-                <Button variant='outline'>
-                  View Profile
-                </Button>
+                <Button variant='outline'>View Profile</Button>
                 <Button>Contact</Button>
               </CardFooter>
             </Card>
@@ -277,21 +263,13 @@ export default function CardDemo() {
                   design systems.
                 </p>
                 <div className='flex flex-wrap gap-2'>
-                  <Badge variant='warning'>
-                    Figma
-                  </Badge>
-                  <Badge variant='default'>
-                    Research
-                  </Badge>
-                  <Badge variant='default'>
-                    Prototyping
-                  </Badge>
+                  <Badge variant='warning'>Figma</Badge>
+                  <Badge variant='default'>Research</Badge>
+                  <Badge variant='default'>Prototyping</Badge>
                 </div>
               </CardContent>
               <CardFooter justify='end'>
-                <Button variant='outline'>
-                  View Profile
-                </Button>
+                <Button variant='outline'>View Profile</Button>
                 <Button>Contact</Button>
               </CardFooter>
             </Card>
@@ -336,9 +314,7 @@ export default function CardDemo() {
                       /month
                     </span>
                   </div>
-                  <Badge variant='default'>
-                    Popular
-                  </Badge>
+                  <Badge variant='default'>Popular</Badge>
                 </div>
                 <ul className='text-sm space-y-1 text-neutral-600 dark:text-neutral-400'>
                   <li>• 200+ Premium Components</li>
@@ -347,9 +323,7 @@ export default function CardDemo() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className='w-full'>
-                  Get Started
-                </Button>
+                <Button className='w-full'>Get Started</Button>
               </CardFooter>
             </Card>
 
@@ -385,9 +359,7 @@ export default function CardDemo() {
                       /month
                     </span>
                   </div>
-                  <Badge variant='success'>
-                    Enterprise
-                  </Badge>
+                  <Badge variant='success'>Enterprise</Badge>
                 </div>
                 <ul className='text-sm space-y-1 text-neutral-600 dark:text-neutral-400'>
                   <li>• Unlimited Components</li>
@@ -396,9 +368,7 @@ export default function CardDemo() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className='w-full'>
-                  Contact Sales
-                </Button>
+                <Button className='w-full'>Contact Sales</Button>
               </CardFooter>
             </Card>
 
@@ -434,9 +404,7 @@ export default function CardDemo() {
                       pricing
                     </span>
                   </div>
-                  <Badge variant='warning'>
-                    Custom
-                  </Badge>
+                  <Badge variant='warning'>Custom</Badge>
                 </div>
                 <ul className='text-sm space-y-1 text-neutral-600 dark:text-neutral-400'>
                   <li>• Bespoke Components</li>
@@ -548,23 +516,17 @@ export default function CardDemo() {
                 <span className='text-sm text-neutral-500 dark:text-neutral-400'>
                   Updated 2h ago
                 </span>
-                <Button variant='outline'>
-                  Edit
-                </Button>
+                <Button variant='outline'>Edit</Button>
               </CardFooter>
             </Card>
 
             <Card variant='outline'>
               <CardHeader>
                 <CardTitle>End Aligned</CardTitle>
-                <CardDescription>
-                  Actions grouped at the end
-                </CardDescription>
+                <CardDescription>Actions grouped at the end</CardDescription>
               </CardHeader>
               <CardFooter justify='end' gap='sm'>
-                <Button variant='outline'>
-                  Cancel
-                </Button>
+                <Button variant='outline'>Cancel</Button>
                 <Button>Save</Button>
               </CardFooter>
             </Card>

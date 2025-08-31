@@ -40,6 +40,7 @@ export default function MenuDemo() {
     },
     {
       id: 'divider1',
+      label: '',
       type: 'divider' as const,
     },
     {
@@ -81,6 +82,7 @@ export default function MenuDemo() {
     },
     {
       id: 'divider1',
+      label: '',
       type: 'divider' as const,
     },
     {
@@ -182,6 +184,7 @@ export default function MenuDemo() {
     },
     {
       id: 'divider1',
+      label: '',
       type: 'divider' as const,
     },
     {
@@ -338,7 +341,7 @@ export default function MenuDemo() {
                   shortcut: '⌘Y',
                   onClick: () => alert('Redo'),
                 },
-                { id: 'divider', type: 'divider' as const },
+                { id: 'divider', label: '', type: 'divider' as const },
                 {
                   id: 'cut',
                   label: 'Cut',

@@ -52,16 +52,14 @@ export default function ThemeTestPage() {
 
   const accordionItems = [
     {
+      id: 'item-1',
       title: 'Theme System',
-      value: 'item-1',
-      trigger: 'Theme System',
       content:
         'Our theme system supports both light and dark modes with automatic detection.',
     },
     {
+      id: 'item-2',
       title: 'Component Variants',
-      value: 'item-2',
-      trigger: 'Component Variants',
       content:
         'Each component includes multiple variants for different use cases.',
     },
@@ -259,19 +257,18 @@ export default function ThemeTestPage() {
             <Dropdown
               items={dropdownItems}
               value={dropdownValue}
-              onSelectionChange={value => setDropdownValue(value)}
+              onSelectionChange={value => setDropdownValue(String(value))}
               placeholder='Select an option'
             />
           </div>
 
           <div>
             <Button onClick={() => setModalOpen(true)}>Open Modal</Button>
-            <Modal
-              isOpen={modalOpen}
-              onClose={() => setModalOpen(false)}
-              title='Theme Test Modal'
-            >
+            <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
               <div className='space-y-4'>
+                <h2 className='text-lg font-semibold text-neutral-900 dark:text-neutral-100'>
+                  Theme Test Modal
+                </h2>
                 <p className='text-neutral-600 dark:text-neutral-400'>
                   This modal demonstrates how our components work in different
                   themes.

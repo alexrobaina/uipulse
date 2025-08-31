@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode, useMemo } from 'react';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Sidebar,
@@ -91,57 +90,56 @@ export default function AppLayout({
   );
 
   return (
-    <SidebarLayout
-      className={className}
-      sidebar={
-        <Sidebar variant={sidebarVariant} className={sidebarClassName}>
-          <SidebarHeader>
-            <div className='flex items-center space-x-2 w-full'>
-              {typeof brand === 'string' ? (
-                <div className='text-lg font-bold'>{brand}</div>
-              ) : (
-                brand
-              )}
-            </div>
-          </SidebarHeader>
-          <SidebarToggle showLabel />
+    <>
+      <ThemeToggle />
+      <SidebarLayout
+        className={className}
+        sidebar={
+          <Sidebar variant={sidebarVariant} className={sidebarClassName}>
+            <SidebarHeader>
+              <div className='flex items-center space-x-2 w-full'>
+                {typeof brand === 'string' ? (
+                  <div className='text-lg font-bold'>{brand}</div>
+                ) : (
+                  brand
+                )}
+              </div>
+            </SidebarHeader>
+            <SidebarToggle showLabel />
 
-          <SidebarContent>
-            <SidebarNav items={activeNavigation} />
-          </SidebarContent>
+            <SidebarContent>
+              <SidebarNav items={activeNavigation} />
+            </SidebarContent>
 
-          {/* Enhanced footer with integrated user info and collapse functionality */}
-          {user && (
-            <SidebarUser
-              user={
-                user
-                  ? {
-                      ...user,
-                      status: 'online', // Default status, can be made dynamic
-                    }
-                  : undefined
-              }
-              showToggle={true}
-              onUserClick={() => {
-                // Optional: Handle user click (e.g., show user menu)
-                console.log('User clicked:', user?.name);
-              }}
-            />
+            {/* Enhanced footer with integrated user info and collapse functionality */}
+            {user && (
+              <SidebarUser
+                user={
+                  user
+                    ? {
+                        ...user,
+                        status: 'online', // Default status, can be made dynamic
+                      }
+                    : undefined
+                }
+                showToggle={true}
+                onUserClick={() => {
+                  // Optional: Handle user click (e.g., show user menu)
+                  console.log('User clicked:', user?.name);
+                }}
+              />
+            )}
+          </Sidebar>
+        }
+      >
+        <div className={cn('flex flex-col h-full', contentClassName)}>
+          {showNavbar && (
+            <Navbar items={navbarItems} className={navbarClassName} />
           )}
-        </Sidebar>
-      }
-    >
-      <div className={cn('flex flex-col h-full', contentClassName)}>
-        {showNavbar && (
-          <Navbar
-            items={navbarItems}
-            className={navbarClassName}
-            actions={<ThemeToggle />}
-          />
-        )}
-        <div className='flex-1 overflow-y-auto'>{children}</div>
-      </div>
-    </SidebarLayout>
+          <div className='flex-1 overflow-y-auto'>{children}</div>
+        </div>
+      </SidebarLayout>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/cn';
 
-const sliderModalVariants = cva(['fixed inset-0 z-50 flex m-0 p-0'], {
+const sliderModalVariants = cva(['fixed inset-0 z-50 flex'], {
   variants: {
     side: {
       left: 'justify-start items-stretch',
@@ -19,7 +19,7 @@ const sliderModalVariants = cva(['fixed inset-0 z-50 flex m-0 p-0'], {
 });
 
 const overlayVariants = cva([
-  'fixed inset-0 bg-black/50 backdrop-blur-sm m-0 p-0',
+  'fixed inset-0 bg-black/50 backdrop-blur-sm',
   'transition-opacity duration-300 ease-out',
   'data-[state=open]:opacity-100 data-[state=closed]:opacity-0',
 ]);
@@ -46,7 +46,7 @@ const contentVariants = cva(
           'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right',
         ],
         top: [
-          'w-full h-full max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]',
+          'w-full h-full max-h-[50vh] lg:max-h-[70vh]',
           'data-[state=open]:animate-in data-[state=closed]:animate-out',
           'data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top',
         ],
@@ -164,18 +164,6 @@ const footerVariants = cva([
 
 export interface SliderModalProps extends VariantProps<typeof contentVariants> {
   /**
-   * Whether the modal is open
-   */
-  open?: boolean;
-  /**
-   * Default open state
-   */
-  defaultOpen?: boolean;
-  /**
-   * Open state change handler
-   */
-  onOpenChange?: (open: boolean) => void;
-  /**
    * Modal title
    */
   title?: string;
@@ -226,9 +214,6 @@ export interface SliderModalProps extends VariantProps<typeof contentVariants> {
 }
 
 const SliderModal: React.FC<SliderModalProps> = ({
-  open,
-  defaultOpen = false,
-  onOpenChange,
   side = 'right',
   variant = 'default',
   size = 'md',
@@ -245,16 +230,11 @@ const SliderModal: React.FC<SliderModalProps> = ({
   overlayClassName,
   trigger,
 }) => {
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
+  const [isOpen, setIsOpen] = React.useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const isOpen = open !== undefined ? open : internalOpen;
-
   const handleOpenChange = (newOpen: boolean) => {
-    if (open === undefined) {
-      setInternalOpen(newOpen);
-    }
-    onOpenChange?.(newOpen);
+    setIsOpen(newOpen);
   };
 
   const handleClose = () => {
@@ -295,80 +275,77 @@ const SliderModal: React.FC<SliderModalProps> = ({
     }
   }, [isOpen]);
 
-  if (!isOpen) {
-    if (trigger) {
-      return <div onClick={() => handleOpenChange(true)}>{trigger}</div>;
-    }
-    return null;
-  }
-
   return (
     <>
+      {/* Trigger */}
       {trigger && <div onClick={() => handleOpenChange(true)}>{trigger}</div>}
 
-      <div className={cn(sliderModalVariants({ side }))}>
-        {/* Overlay */}
-        <div
-          className={cn(overlayVariants(), overlayClassName)}
-          data-state={isOpen ? 'open' : 'closed'}
-          onClick={handleOverlayClick}
-        />
+      {/* Modal */}
+      {isOpen && (
+        <div className={cn(sliderModalVariants({ side }))}>
+          {/* Overlay */}
+          <div
+            className={cn(overlayVariants(), overlayClassName)}
+            data-state={isOpen ? 'open' : 'closed'}
+            onClick={handleOverlayClick}
+          />
 
-        {/* Content */}
-        <div
-          ref={contentRef}
-          className={cn(contentVariants({ side, variant, size }), className)}
-          data-state={isOpen ? 'open' : 'closed'}
-          role='dialog'
-          aria-modal='true'
-          aria-labelledby={title ? 'slider-modal-title' : undefined}
-          aria-describedby={
-            description ? 'slider-modal-description' : undefined
-          }
-          tabIndex={-1}
-        >
-          {/* Header */}
-          {(header || title || description || showCloseButton) && (
-            <div className={headerVariants()}>
-              <div className='flex-1 min-w-0'>
-                {header || (
-                  <>
-                    {title && (
-                      <h2 id='slider-modal-title' className={titleVariants()}>
-                        {title}
-                      </h2>
-                    )}
-                    {description && (
-                      <p
-                        id='slider-modal-description'
-                        className={descriptionVariants()}
-                      >
-                        {description}
-                      </p>
-                    )}
-                  </>
+          {/* Content */}
+          <div
+            ref={contentRef}
+            className={cn(contentVariants({ side, variant, size }), className)}
+            data-state={isOpen ? 'open' : 'closed'}
+            role='dialog'
+            aria-modal='true'
+            aria-labelledby={title ? 'slider-modal-title' : undefined}
+            aria-describedby={
+              description ? 'slider-modal-description' : undefined
+            }
+            tabIndex={-1}
+          >
+            {/* Header */}
+            {(header || title || description || showCloseButton) && (
+              <div className={headerVariants()}>
+                <div className='flex-1 min-w-0'>
+                  {header || (
+                    <>
+                      {title && (
+                        <h2 id='slider-modal-title' className={titleVariants()}>
+                          {title}
+                        </h2>
+                      )}
+                      {description && (
+                        <p
+                          id='slider-modal-description'
+                          className={descriptionVariants()}
+                        >
+                          {description}
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {showCloseButton && (
+                  <button
+                    onClick={handleClose}
+                    className={closeButtonVariants()}
+                    aria-label='Close modal'
+                  >
+                    <X className='w-4 h-4' />
+                  </button>
                 )}
               </div>
+            )}
 
-              {showCloseButton && (
-                <button
-                  onClick={handleClose}
-                  className={closeButtonVariants()}
-                  aria-label='Close modal'
-                >
-                  <X className='w-4 h-4' />
-                </button>
-              )}
-            </div>
-          )}
+            {/* Body */}
+            {children && <div className={bodyVariants()}>{children}</div>}
 
-          {/* Body */}
-          {children && <div className={bodyVariants()}>{children}</div>}
-
-          {/* Footer */}
-          {footer && <div className={footerVariants()}>{footer}</div>}
+            {/* Footer */}
+            {footer && <div className={footerVariants()}>{footer}</div>}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

@@ -7,10 +7,14 @@ import {
   useContext,
   useEffect,
 } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/cn';
 import { ArrowLeft, Menu, X } from 'lucide-react';
 import Button from '../atoms/Button';
+import Tooltip from '../atoms/Tooltip';
+import SearchModal from './SearchModal';
 
 /**
  * RESPONSIVE SIDEBAR COMPONENT SYSTEM - VERCEL INSPIRED
@@ -244,7 +248,7 @@ export function SidebarContent({ children, className }: SidebarContentProps) {
       className={cn(
         'flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-600',
         // Adjust padding based on collapsed state
-        isCollapsed ? 'p-2' : 'p-4',
+        isCollapsed ? 'p-3' : 'p-4',
         className
       )}
     >
@@ -322,7 +326,7 @@ export function SidebarToggle({
     ),
   };
 
-  return (
+  const toggleButton = (
     <Button
       variant='ghost'
       onClick={toggleCollapsed}
@@ -353,6 +357,19 @@ export function SidebarToggle({
         </>
       )}
     </Button>
+  );
+
+  return isCollapsed ? (
+    <Tooltip
+      content='Expand sidebar'
+      position='right'
+      delay={300}
+      useFixedPosition={true}
+    >
+      <div className='inline-block'>{toggleButton}</div>
+    </Tooltip>
+  ) : (
+    toggleButton
   );
 }
 
@@ -410,60 +427,123 @@ export function SidebarUser({
     >
       {/* User Info Section - only show if user exists */}
       {user && (
-        <div
-          className={cn(
-            'flex items-center transition-all duration-200',
-            isCollapsed ? 'justify-center' : 'space-x-3',
-            // Add margin bottom only if toggle is also shown
-            showToggle && !isMobile ? (isCollapsed ? 'mb-2' : 'mb-3') : '',
-            onUserClick &&
-              'cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg p-2 -m-2'
-          )}
-          onClick={onUserClick}
-        >
-          {/* Avatar Section */}
-          <div className='relative flex-shrink-0'>
-            {user.avatar ? (
-              typeof user.avatar === 'string' ? (
-                <img
-                  src={user.avatar}
-                  alt={user.name}
-                  className='w-8 h-8 rounded-full object-cover'
-                />
-              ) : (
-                user.avatar
-              )
-            ) : (
-              <div className='w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium'>
-                {user.name
-                  .split(' ')
-                  .map(n => n[0])
-                  .join('')
-                  .toUpperCase()}
-              </div>
-            )}
+        <div>
+          {isCollapsed ? (
+            <Tooltip
+              content={user.name}
+              position='right'
+              delay={300}
+              useFixedPosition={true}
+            >
+              <div className='inline-block'>
+                <div
+                  className={cn(
+                    'flex items-center transition-all duration-200',
+                    isCollapsed ? 'justify-center' : 'space-x-3',
+                    // Add margin bottom only if toggle is also shown
+                    showToggle && !isMobile
+                      ? isCollapsed
+                        ? 'mb-2'
+                        : 'mb-3'
+                      : '',
+                    onUserClick &&
+                      'cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg p-2 -m-2'
+                  )}
+                  onClick={onUserClick}
+                >
+                  {/* Avatar Section */}
+                  <div className='relative flex-shrink-0'>
+                    {user.avatar ? (
+                      typeof user.avatar === 'string' ? (
+                        <img
+                          src={user.avatar}
+                          alt={user.name}
+                          className='w-8 h-8 rounded-full object-cover'
+                        />
+                      ) : (
+                        user.avatar
+                      )
+                    ) : (
+                      <div className='w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium'>
+                        {user.name
+                          .split(' ')
+                          .map(n => n[0])
+                          .join('')
+                          .toUpperCase()}
+                      </div>
+                    )}
 
-            {/* Status Indicator */}
-            {user.status && !isCollapsed && (
-              <span
-                className={cn(
-                  'absolute -bottom-0.5 -right-0.5 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-neutral-900',
-                  statusColors[user.status]
+                    {/* Status Indicator */}
+                    {user.status && !isCollapsed && (
+                      <span
+                        className={cn(
+                          'absolute -bottom-0.5 -right-0.5 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-neutral-900',
+                          statusColors[user.status]
+                        )}
+                        aria-label={`Status: ${user.status}`}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Tooltip>
+          ) : (
+            <div
+              className={cn(
+                'flex items-center transition-all duration-200',
+                isCollapsed ? 'justify-center' : 'space-x-3',
+                // Add margin bottom only if toggle is also shown
+                showToggle && !isMobile ? (isCollapsed ? 'mb-2' : 'mb-3') : '',
+                onUserClick &&
+                  'cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg p-2 -m-2'
+              )}
+              onClick={onUserClick}
+            >
+              {/* Avatar Section */}
+              <div className='relative flex-shrink-0'>
+                {user.avatar ? (
+                  typeof user.avatar === 'string' ? (
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className='w-8 h-8 rounded-full object-cover'
+                    />
+                  ) : (
+                    user.avatar
+                  )
+                ) : (
+                  <div className='w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium'>
+                    {user.name
+                      .split(' ')
+                      .map(n => n[0])
+                      .join('')
+                      .toUpperCase()}
+                  </div>
                 )}
-                aria-label={`Status: ${user.status}`}
-              />
-            )}
-          </div>
 
-          {/* User Details - hidden when collapsed */}
-          {!isCollapsed && (
-            <div className='flex-1 min-w-0'>
-              <div className='text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate'>
-                {user.name}
+                {/* Status Indicator */}
+                {user.status && !isCollapsed && (
+                  <span
+                    className={cn(
+                      'absolute -bottom-0.5 -right-0.5 block h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-neutral-900',
+                      statusColors[user.status]
+                    )}
+                    aria-label={`Status: ${user.status}`}
+                  />
+                )}
               </div>
-              {user.email && (
-                <div className='text-xs text-neutral-500 dark:text-neutral-400 truncate'>
-                  {user.email}
+
+              {/* User Details - hidden when collapsed */}
+              {!isCollapsed && (
+                <div className='flex-1 min-w-0'>
+                  <div className='text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate'>
+                    {user.name}
+                  </div>
+                  {user.email && (
+                    <div className='text-xs text-neutral-500 dark:text-neutral-400 truncate'>
+                      {user.email}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -527,12 +607,11 @@ export function SidebarNav({ items, className }: SidebarNavProps) {
   const { isCollapsed } = useSidebar();
 
   return (
-    <nav className={cn('space-y-1', className)}>
+    <nav className={cn('space-y-1 w-full', className)}>
       {items.map((item, index) => (
         <SidebarNavItem
           key={index}
           item={item}
-          isActive={item.isActive}
           isCollapsed={isCollapsed}
           className={className}
         />
@@ -558,7 +637,38 @@ function SidebarNavItem({
   className,
 }: SidebarNavItemProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const hasChildren = item.items && item.items.length > 0;
+
+  // Convert sidebar items to search results
+  const getSearchResults = () => {
+    if (!hasChildren) return [];
+
+    return item.items!.map((subItem, index) => ({
+      id: `${item.title}-${index}`,
+      title: subItem.title,
+      description: subItem.subtitle,
+      type: 'page' as const,
+      url: subItem.href || '#',
+      icon: subItem.icon,
+    }));
+  };
+
+  const handleItemClick = () => {
+    if (hasChildren) {
+      if (isCollapsed) {
+        setIsSearchOpen(true);
+      } else {
+        setIsExpanded(!isExpanded);
+      }
+    }
+  };
+
+  const router = useRouter();
+
+  const handleNavigate = (url: string) => {
+    router.push(url);
+  };
 
   const NavContent = (
     <div
@@ -595,7 +705,7 @@ function SidebarNavItem({
       <div
         className={cn(
           'flex items-center',
-          isCollapsed ? 'justify-center' : 'space-x-3'
+          isCollapsed ? 'justify-center p-1' : 'space-x-3'
         )}
       >
         {item.icon && (
@@ -651,11 +761,33 @@ function SidebarNavItem({
     </div>
   );
 
+  // Wrap with tooltip when collapsed
+  const getTooltipContent = () => {
+    if (hasChildren && isCollapsed) {
+      return `Search ${item.title}`;
+    }
+    return item.title;
+  };
+
+  const NavContentWithTooltip =
+    isCollapsed && item.icon && (item.href || hasChildren) ? (
+      <Tooltip
+        content={getTooltipContent()}
+        position='right'
+        delay={300}
+        useFixedPosition={true}
+      >
+        <div className='block w-full'>{NavContent}</div>
+      </Tooltip>
+    ) : (
+      NavContent
+    );
+
   // Simple navigation link
   if (item.href && !hasChildren) {
     return (
-      <Link href={item.href} className='block'>
-        {NavContent}
+      <Link href={item.href} className='block w-full'>
+        {NavContentWithTooltip}
       </Link>
     );
   }
@@ -664,14 +796,30 @@ function SidebarNavItem({
   return (
     <div>
       <button
-        onClick={() => hasChildren && setIsExpanded(!isExpanded)}
+        onClick={handleItemClick}
         className='w-full text-left'
         disabled={!hasChildren}
       >
-        {NavContent}
+        {NavContentWithTooltip}
       </button>
 
-      {/* Nested children */}
+      {/* Search Modal for collapsed state with children - rendered as portal */}
+      {hasChildren &&
+        isCollapsed &&
+        isSearchOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <SearchModal
+            isOpen={isSearchOpen}
+            onClose={() => setIsSearchOpen(false)}
+            onNavigate={handleNavigate}
+            searchResults={getSearchResults()}
+            placeholder={`Search ${item.title}...`}
+          />,
+          document.body
+        )}
+
+      {/* Nested children - only shown when expanded and not collapsed */}
       {hasChildren && isExpanded && !isCollapsed && (
         <div className='mt-1 space-y-1'>
           {item.items!.map((subItem, index) => (

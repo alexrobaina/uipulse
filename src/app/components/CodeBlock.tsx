@@ -213,7 +213,10 @@ export default function CodeBlock({
                   )}
                   <span className='table-cell'>
                     {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
+                      <span
+                        key={key.toString()}
+                        {...getTokenProps({ token, key })}
+                      />
                     ))}
                   </span>
                 </div>

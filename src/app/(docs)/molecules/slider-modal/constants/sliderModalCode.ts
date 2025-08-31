@@ -63,18 +63,6 @@ const contentVariants = cva([
 
 export interface SliderModalProps extends VariantProps<typeof contentVariants> {
   /**
-   * Whether the modal is open
-   */
-  open?: boolean;
-  /**
-   * Default open state
-   */
-  defaultOpen?: boolean;
-  /**
-   * Open state change handler
-   */
-  onOpenChange?: (open: boolean) => void;
-  /**
    * Modal title
    */
   title?: string;
@@ -117,9 +105,6 @@ export interface SliderModalProps extends VariantProps<typeof contentVariants> {
 }
 
 const SliderModal: React.FC<SliderModalProps> = ({
-  open,
-  defaultOpen = false,
-  onOpenChange,
   side = "right",
   variant = "default",
   size = "md",
@@ -134,17 +119,15 @@ const SliderModal: React.FC<SliderModalProps> = ({
   className,
   trigger,
 }) => {
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
+  const [isOpen, setIsOpen] = React.useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  
-  const isOpen = open !== undefined ? open : internalOpen;
 
   // Modal implementation logic...
 
   return (
     <>
       {trigger && (
-        <div onClick={() => handleOpenChange(true)}>
+        <div onClick={() => setIsOpen(true)}>
           {trigger}
         </div>
       )}
